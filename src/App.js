@@ -11,9 +11,10 @@ class App extends Component {
     page: PropTypes.number,
     loading: PropTypes.bool,
     value: PropTypes.string,
-    movies: PropTypes.array,
+    movies: PropTypes.arrayOf(PropTypes.string),
     movie: PropTypes.object,
-    searchTerm: PropTypes.string
+    searchTerm: PropTypes.string,
+    handleSearch: PropTypes.func
   };
 
   constructor(props) {
@@ -38,33 +39,27 @@ class App extends Component {
     console.log('click: ', name, value);
   }
 
-  handleSearch(searchTerm) {
+
+
+  async handleSearch(searchTerm) {
     if (!searchTerm) return;
     let moviesArray = [];
+    // debounce - slow down requests
 
     for (let i = 0; i <= 10; i++ ) {
-      fetch(`http://www.omdbapi.com/?s=${searchTerm}&apikey=${API_KEY}&type=movie&page${i}`)
-        .then(res => {
-          console.log('fetching: ', i);
-          if (res.status === 200) return res.json();
-        })
-        .then(results => {
-          for (var [key, value] of Object.entries(results.Search)) {
-            console.log('results: ', key, value.Title);
-            // console.log('in results obj: ', value[key].Title)
-            // moviesArray.push(value);
-          }
-        })
-        .catch(function(error) {
-          console.log('Request failed', error);
-        });
-        i++;
-      }   }
-    //       else {
-    //     console.log('end of ten');
-    // }
+      const res = await fetch(`http://www.omdbapi.com/?s=${searchTerm}&apikey=${API_KEY}&type=movie&page=${i}`);
+      let results = await res.json();
+      if(results.Search) {
 
+      results.Search.forEach(r =>{
+        // console.log(r, typeof r)
+        moviesArray = moviesArray.concat(r);
+      })
+    }
 
+  }
+    this.setState({movies: moviesArray})
+    }
 
 
   render() {
@@ -77,7 +72,7 @@ class App extends Component {
           <h2>Welcome to React</h2>
         </div>
         <div>
-          <Search handleSearch={searchTerm => this.handleSearch(searchTerm)} />
+          <Search onSearch={searchTerm => this.handleSearch(searchTerm)} />
           <Movies movies={this.state.movies} />
         </div>
       </div>
