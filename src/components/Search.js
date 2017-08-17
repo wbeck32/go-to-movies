@@ -5,12 +5,11 @@ Search.propTypes = {
   searchTerm: PropTypes.string
 };
 
-export function Search({ onChange }) {
-  // console.log(searchTerm, typeof SearchTerm)
+export function Search({ handleSearch }) {
 
   return (
     <div>
-      <input name="searchInput" onChange={({target}) => onChange(target.value)}/>
+      <input name="searchInput" onChange={({target}) => handleSearch(target.value)}/>
     </div>
   );
 }
