@@ -6,28 +6,29 @@ Movie.propTypes = {
 }
 
 Movies.propTypes = {
-  movies: PropTypes.object
+  movies: PropTypes.array
 }
 
 export function Movies({movies}) {
   return (
-    <ul>
+    <div>
       {movies.map(movie => (
-        <li key={movie.imdbID}>
+        <div key={movie.imdbID}>
           <Movie movie={movie}/>
-        </li>
+        </div>
       ))}
-    </ul>
+    </div>
   );
 }
 
 export function Movie({movie}) {
   return (
     <div>
-      <span>{movie.Title}!</span>
-      <img src={movie.Poster} style={{
+      <span>{movie.Title}
+        - {movie.Year}</span>
+      {/* <img src={movie.Poster} style={{
         width: 100
-      }}/>
+      }}/> */}
     </div>
   );
 }

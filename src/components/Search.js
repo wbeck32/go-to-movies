@@ -2,15 +2,15 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 Search.propTypes = {
-  category: PropTypes.string,
-  value: PropTypes.string
-}
+  searchTerm: PropTypes.string
+};
 
-export function Search({category, value}) {
+export function Search({ onChange }) {
+  // console.log(searchTerm, typeof SearchTerm)
+
   return (
-
-    <div>'in search: ', {category}, {value}</div>
-
+    <div>
+      <input name="searchInput" onChange={({target}) => onChange(target.value)}/>
+    </div>
   );
-
 }

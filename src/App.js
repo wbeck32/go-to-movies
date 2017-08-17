@@ -1,59 +1,73 @@
 import React, {Component} from 'react';
+import PropTypes from 'prop-types';
 import logo from './scans_celtic_knot.svg';
 import './css/index.css';
 import {Search} from './components/Search';
 import {Movies} from './components/Movies';
+const API_KEY = process.env.REACT_APP_API_KEY;
+
 
 class App extends Component {
+
+  static propTypes = {
+    page: PropTypes.number,
+    loading: PropTypes.bool,
+    value: PropTypes.string,
+    movies: PropTypes.array,
+    movie: PropTypes.object,
+    searchTerm: PropTypes.string
+  }
+
   constructor(props) {
     super(props);
 
     this.state = {
-      movies: {},
-      movie: {},
+      movies: [],
+      movie: null,
       page: 1,
       loading: true,
-      category: 'title',
-      value: 'Star Wars'
+      value: '',
+      searchTerm: 'h'
     };
   }
 
   componentDidMount() {
     console.log('mounted');
-
-    // this.fetchMovies(this.state.page);
+    this.setState({loading: false})
   }
 
   handleClick({name, value}) {
     console.log('click: ', name, value);
   }
 
-  handleAutoComplete({name, value}) {
-    console.log('change: ', name, value);
-    // console.log('key: `${process.env.API_KEY}`')
-    let movieId = 'tt1285016';
-    let url = 'http://www.omdbapi.com/'
-
-    function json(response) {
-      return response.json()
-    }
-
-    fetch(url, {
-      method: 'post',
-      headers: {
-        "Content-type": "application/x-www-form-urlencoded; charset=UTF-8"
-      },
-        body: 'apikey=3db77742&i=tt1285016'
-      })
-      .then(json)
-      .then(function (data) {
-        console.log('Request succeeded with JSON response', data);
-      })
-    // .catch(function (error) {   console.log('Request failed', error); });
-
+  handleSearch(searchTerm) {
+    console.log('in handle: ',searchTerm)
+    // this.setState({searchTerm: searchTerm})
+    let moviesArray = [];
+      for (let i = 1; i <= 10; i++) {
+        fetch(`http://www.omdbapi.com/?s=${searchTerm}&apikey=${API_KEY}&type=movie&page${i}`)
+          .then(res => {
+            if (res.status === 200) return res.json();
+          })
+          .then(results => {
+            console.log(typeof results, results);
+            for (var [key, value] of Object.keys(results.Search)) {
+              console.log('results: ',key + ' ' + value, results.Search[0]); // "a 5", "b 7", "c 9"
+          }
+            //   moviesArray.push(movie);
+            // return moviesArray;
+          })
+          .catch(function(error) {
+            console.log('Request failed', error);
+          });
+          this.setState({movies: moviesArray});
+      }
   }
 
   render() {
+    if (this.state.loading)
+      return <div>Loading...</div>;
+
     return (
       <div className="App">
         <div className="App-header">
@@ -61,15 +75,8 @@ class App extends Component {
           <h2>Welcome to React</h2>
         </div>
         <div>
-          <input
-            name="searchCategory"
-            value={this.state.searchCategory}
-            onChange={({target}) => this.handleAutoComplete(target)}/>
-          <input name="searchValue" value={this.state.searchValue}/>
-          <button name="search" onClick={({target}) => this.handleClick(target)}>
-            search
-          </button>
-          {/* <Search category={this.state.category} value={this.state.value}/> */}
+          <Search onChange={(searchTerm) => this.handleSearch(searchTerm)}/>
+          <Movies movies={this.state.movies}/>
         </div>
       </div>
     );
