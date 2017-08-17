@@ -5,11 +5,10 @@
     "es6": true,
     "node": true
   },
-  "plugins": ["react", "react-native"],
+  "plugins": ["react"],
   "extends": [
     "eslint:recommended",
     "plugin:react/recommended",
-    "plugin:react-native/all",
     "react-app"
   ],
   "parserOptions": {

@@ -2,13 +2,15 @@ import React, {Component} from 'react';
 import logo from './scans_celtic_knot.svg';
 import './css/index.css';
 import {Search} from './components/Search';
+import {Movies} from './components/Movies';
 
 class App extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      movies: null,
+      movies: {},
+      movie: {},
       page: 1,
       loading: true,
       category: 'title',
@@ -26,8 +28,28 @@ class App extends Component {
     console.log('click: ', name, value);
   }
 
-  handleChange({name, value}) {
+  handleAutoComplete({name, value}) {
     console.log('change: ', name, value);
+    // console.log('key: `${process.env.API_KEY}`')
+    let movieId = 'tt1285016';
+    let url = 'http://www.omdbapi.com/'
+
+    function json(response) {
+      return response.json()
+    }
+
+    fetch(url, {
+      method: 'post',
+      headers: {
+        "Content-type": "application/x-www-form-urlencoded; charset=UTF-8"
+      },
+        body: 'apikey=3db77742&i=tt1285016'
+      })
+      .then(json)
+      .then(function (data) {
+        console.log('Request succeeded with JSON response', data);
+      })
+    // .catch(function (error) {   console.log('Request failed', error); });
 
   }
 
@@ -42,19 +64,13 @@ class App extends Component {
           <input
             name="searchCategory"
             value={this.state.searchCategory}
-            onChange={({target}) => this.handleChange(target)}/>
+            onChange={({target}) => this.handleAutoComplete(target)}/>
           <input name="searchValue" value={this.state.searchValue}/>
-          //
           <button name="search" onClick={({target}) => this.handleClick(target)}>
             search
           </button>
           {/* <Search category={this.state.category} value={this.state.value}/> */}
         </div>
-        <p className="App-intro">
-          To get started, edit
-          <code>src/App.js</code>
-          and save to reload.
-        </p>
       </div>
     );
   }

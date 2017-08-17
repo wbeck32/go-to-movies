@@ -1,6 +1,15 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
-export function Movies({ movies }) {
+Movie.propTypes = {
+  movie: PropTypes.object
+}
+
+Movies.propTypes = {
+  movies: PropTypes.object
+}
+
+export function Movies({movies}) {
   return (
     <ul>
       {movies.map(movie => (
@@ -12,11 +21,13 @@ export function Movies({ movies }) {
   );
 }
 
-export function Movie({ movie }) {
+export function Movie({movie}) {
   return (
     <div>
-        <span>{movie.Title}!</span>
-        <img src={movie.Poster} style={{ width: 100 }}/>
+      <span>{movie.Title}!</span>
+      <img src={movie.Poster} style={{
+        width: 100
+      }}/>
     </div>
   );
 }
