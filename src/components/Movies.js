@@ -3,32 +3,33 @@ import PropTypes from 'prop-types';
 
 Movie.propTypes = {
   movie: PropTypes.object
-}
+};
 
 Movies.propTypes = {
   movies: PropTypes.array
-}
+};
 
-export function Movies({movies}) {
+export function Movies({ movies }) {
   return (
-    <div>
-      {movies.map(movie => (
+    <div className="movieList">
+      {movies.map(movie =>
         <div key={movie.imdbID}>
-          <Movie movie={movie}/>
+          <Movie movie={movie} />
         </div>
-      ))}
+      )}
     </div>
   );
 }
 
-export function Movie({movie}) {
+export function Movie({ movie }) {
   return (
-    <div>
-      <span>{movie.Title}
-        - {movie.Year}</span>
-      {/* <img src={movie.Poster} style={{
-        width: 100
-      }}/> */}
-    </div>
+      <div className="movieItem movieInfo">
+        {movie.Title} - {movie.Year}
+        <div className="movieInfo">
+        <img src={movie.Poster} style={{width: 100}}/>
+      </div>
+      </div>
   );
 }
+
+

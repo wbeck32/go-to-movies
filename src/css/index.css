@@ -19,13 +19,38 @@
 }
 
 @keyframes App-logo-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }
-
 
 body {
   margin: 0;
   padding: 0;
   font-family: sans-serif;
+}
+
+.movieList {
+  border: 1px solid red;
+}
+
+.movieInfo {
+  display: none;
+}
+.movieInfo:hover {
+  display: block;
+  border: 3px solid black;
+}
+
+.movieItem {
+  display: block;
+  border: 1px solid green;
+  text-decoration: underline;
+}
+.movieItem:hover {
+  display: block;
+  border: 3px solid black;
 }
