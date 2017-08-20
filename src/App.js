@@ -30,19 +30,16 @@ class App extends Component {
       movie: null,
       page: 1,
       loading: true,
-      value: '',
       searchTerm: '',
       selectedMovieInfo: {},
-      movieInfo: '',
-      infoClass: 'invisible',
-      movieProps: ''
+      display: 'none',
+      visibility: 'hidden'
     };
 
     this.getMovieInfo = this.getMovieInfo.bind(this);
   }
 
   componentDidMount() {
-    console.log('mounted');
     this.setState({ loading: false });
   }
 
@@ -52,6 +49,9 @@ class App extends Component {
     );
     let titleInfo = await titleData.json();
     this.setState({selectedMovieInfo: titleInfo});
+    this.setState({display: 'block'})
+    this.setState({visibility: 'visible'})
+
   }
 
   async handleSearch(searchTerm) {
@@ -59,7 +59,6 @@ class App extends Component {
     searchTerm = encodeURI(searchTerm);
     let moviesArray = [];
     // debounce - slow down requests
-
     for (let i = 0; i <= 5; i++) {
       const res = await fetch(
         `http://www.omdbapi.com/?s=${searchTerm}&apikey=${API_KEY}&type=movie&page=${i}`
@@ -83,9 +82,11 @@ class App extends Component {
         </div>
         <div>
           <Search onSearch={searchTerm => this.handleSearch(searchTerm)} />
+          <div style={{display: this.state.display, visibility: this.state.visibility}} >
           <MovieInfo selectedMovie={this.state.selectedMovieInfo} />
+          </div>
           <div onClick={( {target} ) => this.getMovieInfo({target})}>
-          <Movies movies={this.state.movies}/>
+          <Movies movies={this.state.movies} />
           </div>
         </div>
       </div>

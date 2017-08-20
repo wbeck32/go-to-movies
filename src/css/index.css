@@ -31,36 +31,51 @@ body {
   margin: 0;
   padding: 0;
   font-family: sans-serif;
+  color: black;
+}
+a {
+  text-decoration: none;
+  text-decoration-color: black;
 }
 
 .movieList {
   border: 1px solid red;
 }
 
-.movieInfo .invisible {
+.movieInfo {
+  text-align: left;
+  padding: 20px;
+}
+
+.movieInfo .row {
+  padding: 10px;
+  text-align: left;
+  border-bottom: 1px solid gray;
+}
+
+.row div {
+  display: inline;
+
+}
+.row div:first-child {
+  font-weight: bold;
+  text-align: right;
+  width: 15%;
+  display: inline-block;
+  margin: 0 5px 0 0;
+}
+
+.invisible {
   display: none;
 }
 
-.movieInfo .visible {
+.visible {
   display: block;
 }
-
-.infoPanel {
-  border: 1px solid green;
-}
-
-/* .movieInfo:hover {
-  display: block;
-  border: 3px solid black;
-} */
-
 
 .movieItem {
   display: block;
   /* border: 1px solid green; */
   text-decoration: underline;
 }
-.movieItem:hover {
-  /* display: block; */
-  /* border: 3px solid black; */
-}
+
