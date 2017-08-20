@@ -14,7 +14,7 @@ export function Movies({ movies }) {
     <div className="movieList">
       {movies.map(movie =>
         <div key={movie.imdbID}>
-          <Movie movieKey={movie.imdbID} movie={movie}  />
+          <Movie movie={movie}  />
         </div>
       )}
     </div>

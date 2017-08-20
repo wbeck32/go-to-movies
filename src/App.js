@@ -47,12 +47,10 @@ class App extends Component {
   }
 
   async getMovieInfo(target) {
-    console.log('click: ', target.target.id, Object.keys(target.target));
     const titleData = await fetch(
       `http://www.omdbapi.com/?i=${target.target.id}&apikey=${API_KEY}`
     );
     let titleInfo = await titleData.json();
-    if( titleInfo) console.log(titleInfo);
     this.setState({selectedMovieInfo: titleInfo});
   }
 
@@ -71,7 +69,6 @@ class App extends Component {
         moviesArray = moviesArray.concat(results.Search);
       }
     }
-
     this.setState({ movies: moviesArray });
   }
 
@@ -88,7 +85,7 @@ class App extends Component {
           <Search onSearch={searchTerm => this.handleSearch(searchTerm)} />
           <MovieInfo selectedMovie={this.state.selectedMovieInfo} />
           <div onClick={( {target} ) => this.getMovieInfo({target})}>
-          <Movies movies={this.state.movies} movieProps={this.props.children}/>
+          <Movies movies={this.state.movies}/>
           </div>
         </div>
       </div>

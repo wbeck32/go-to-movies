@@ -6,9 +6,8 @@ MovieInfo.propTypes = {
 }
 
 export function MovieInfo({selectedMovie}) {
-  console.log('info: ',selectedMovie)
   return (
-  <div key={selectedMovie.imdbID} className="movieInfo">
+  <div className="movieInfo">
   <div><span>title: </span>{selectedMovie.Title}</div>
   <div><span>release date: </span>{selectedMovie.Released}</div>
   <div><span>rating: </span>{selectedMovie.Rated}</div>
