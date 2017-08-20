@@ -4,13 +4,14 @@
 
 .App-logo {
   animation: App-logo-spin infinite 10s linear;
-  height: 80px;
+  width: 30px;
+  border: none;
 }
 
 .App-header {
   background-color: #fff;
-  height: 150px;
-  padding: 25px;
+  height: 70px;
+  padding: 35px;
   color: #000;
 }
 
@@ -37,14 +38,33 @@ a {
   text-decoration: none;
   text-decoration-color: black;
 }
+img {
+  max-width: 200px;
+  padding: 5px;
+  border: 2px solid gold;
 
-.movieList {
-  border: 1px solid red;
+}
+input {
+  height: 50px;
+  width: 70%;
+  border: 1px solid lightgrey;
+  border-radius:10px;
+  font-size: 2rem;
+}
+
+.moviePoster {
+  width: 20%;
+  float: right;
+  display: inline;
+  padding: 20px;
 }
 
 .movieInfo {
   text-align: left;
   padding: 20px;
+  width: 70%;
+  float: left;
+  display: inline;
 }
 
 .movieInfo .row {

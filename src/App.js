@@ -5,6 +5,8 @@ import './css/index.css';
 import { Search } from './components/Search';
 import { Movies } from './components/Movies';
 import { MovieInfo } from './components/MovieInfo';
+import { MoviePoster } from './components/MovieInfo';
+
 
 
 const API_KEY = process.env.REACT_APP_API_KEY;
@@ -33,7 +35,8 @@ class App extends Component {
       searchTerm: '',
       selectedMovieInfo: {},
       display: 'none',
-      visibility: 'hidden'
+      visibility: 'hidden',
+      posterUrl: logo
     };
 
     this.getMovieInfo = this.getMovieInfo.bind(this);
@@ -51,6 +54,7 @@ class App extends Component {
     this.setState({selectedMovieInfo: titleInfo});
     this.setState({display: 'block'})
     this.setState({visibility: 'visible'})
+    this.setState({posterUrl: titleInfo.Poster})
 
   }
 
@@ -71,24 +75,35 @@ class App extends Component {
     this.setState({ movies: moviesArray });
   }
 
+  handleClose() {
+    this.setState({display: 'none'})
+    this.setState({visibility: 'hidden'})
+
+  }
+
   render() {
     if (this.state.loading) return <div>Loading...</div>;
 
     return (
       <div className="App">
-        <div className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h2>Movie Seeker</h2>
-        </div>
-        <div>
-          <Search onSearch={searchTerm => this.handleSearch(searchTerm)} />
-          <div style={{display: this.state.display, visibility: this.state.visibility}} >
-          <MovieInfo selectedMovie={this.state.selectedMovieInfo} />
+      <div className="App-header">
+      <img src={logo} className="App-logo" alt="logo" />
+        <h2>Movie Seeker</h2>
+      </div>
+      <div>
+        <Search onSearch={searchTerm => this.handleSearch(searchTerm)} />
+        <div style={{display: this.state.display, visibility: this.state.visibility, float: 'left', width: '100%'}} >
+          <MovieInfo selectedMovie={this.state.selectedMovieInfo}/>
+          <MoviePoster selectedMovie={this.state.selectedMovieInfo}/>
+          <div style={{textAlign:'center'}}>
+            <button onClick={() => this.handleClose()}
+              style={{height:20, marginTop:30}}>close info panel</button>
           </div>
-          <div onClick={( {target} ) => this.getMovieInfo({target})}>
-          <Movies movies={this.state.movies} />
-          </div>
         </div>
+      <div onClick={( {target} ) => this.getMovieInfo({target})}>
+        <Movies movies={this.state.movies} />
+      </div>
+      </div>
       </div>
     );
   }

@@ -5,8 +5,14 @@ MovieInfo.propTypes = {
   selectedMovie:PropTypes.object,
 }
 
+MoviePoster.propTypes = {
+  selectedMovie:PropTypes.object,
+}
+
+
 export function MovieInfo({selectedMovie}) {
   return (
+  <div>
   <div className="movieInfo">
   <div className="row">
     <div>title:</div><div>{selectedMovie.Title}</div>
@@ -32,11 +38,19 @@ export function MovieInfo({selectedMovie}) {
   <div className="row">
     <div>synopsis:</div><div>{selectedMovie.Plot}</div>
   </div>
-  <div className="row" style={{textAlign:'center'}}><a href="http://www.imdb.com/title/{selectedMovie.imdbId}" target="_blank" style={{color:'black'}}>click here for more info at imdb</a></div>
-  <div className="row" style={{textAlign:'right', paddingRight:20}}>
-  <button name="close">close info panel</button>
-  </div>
-  </div>
+  <div className="row" style={{textAlign:'center'}}><a href="http://www.imdb.com/title/{selectedMovie.imdbId}" target="_blank" rel="noopener noreferrer" style={{color:'black'}}>click here for more info at imdb</a></div>
 
+  </div>
+</div>
   );
+}
+
+export function MoviePoster({selectedMovie}) {
+return (
+  // <div className="posterWrapper">
+<div className="moviePoster">
+<img src={selectedMovie.Poster} alt={selectedMovie.Title}/>
+</div>
+// </div>
+);
 }
