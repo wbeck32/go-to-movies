@@ -37,13 +37,23 @@ body {
   border: 1px solid red;
 }
 
-.movieInfo {
+.movieInfo .invisible {
+  display: none;
+}
+
+.movieInfo .visible {
   display: block;
 }
-.movieInfo:hover {
+
+.infoPanel {
+  border: 1px solid green;
+}
+
+/* .movieInfo:hover {
   display: block;
   border: 3px solid black;
-}
+} */
+
 
 .movieItem {
   display: block;

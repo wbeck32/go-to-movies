@@ -6,6 +6,7 @@ import { Search } from './components/Search';
 import { Movies } from './components/Movies';
 import { MovieInfo } from './components/MovieInfo';
 
+
 const API_KEY = process.env.REACT_APP_API_KEY;
 
 class App extends Component {
@@ -31,10 +32,13 @@ class App extends Component {
       loading: true,
       value: '',
       searchTerm: '',
-      selectedMovie: ''
+      selectedMovieInfo: {},
+      movieInfo: '',
+      infoClass: 'invisible',
+      movieProps: ''
     };
 
-    this.handleClick = this.handleClick.bind(this);
+    this.getMovieInfo = this.getMovieInfo.bind(this);
   }
 
   componentDidMount() {
@@ -42,9 +46,14 @@ class App extends Component {
     this.setState({ loading: false });
   }
 
-  handleClick(target) {
-    console.log('click: ', target);
-    // this.setState({selectedMovie: target});
+  async getMovieInfo(target) {
+    console.log('click: ', target.target.id, Object.keys(target.target));
+    const titleData = await fetch(
+      `http://www.omdbapi.com/?i=${target.target.id}&apikey=${API_KEY}`
+    );
+    let titleInfo = await titleData.json();
+    if( titleInfo) console.log(titleInfo);
+    this.setState({selectedMovieInfo: titleInfo});
   }
 
   async handleSearch(searchTerm) {
@@ -59,11 +68,10 @@ class App extends Component {
       );
       let results = await res.json();
       if (results.Search) {
-        // results.Search.forEach(r => {
         moviesArray = moviesArray.concat(results.Search);
-        // });
       }
     }
+
     this.setState({ movies: moviesArray });
   }
 
@@ -78,13 +86,10 @@ class App extends Component {
         </div>
         <div>
           <Search onSearch={searchTerm => this.handleSearch(searchTerm)} />
-          <MovieInfo />MOVIE
-          <button
-            className="myButton"
-            onClick={({ target }) => this.handleClick(target)}>
-            plain
-          </button>
-          <Movies movies={this.state.movies} />
+          <MovieInfo selectedMovie={this.state.selectedMovieInfo} />
+          <div onClick={( {target} ) => this.getMovieInfo({target})}>
+          <Movies movies={this.state.movies} movieProps={this.props.children}/>
+          </div>
         </div>
       </div>
     );
