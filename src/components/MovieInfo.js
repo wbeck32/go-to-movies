@@ -11,6 +11,7 @@ MoviePoster.propTypes = {
 
 
 export function MovieInfo({selectedMovie}) {
+  let urlString = "http://www.imdb.com/title/"+selectedMovie.imdbID
   return (
   <div>
   <div className="movieInfo">
@@ -38,8 +39,11 @@ export function MovieInfo({selectedMovie}) {
   <div className="row">
     <div>synopsis:</div><div>{selectedMovie.Plot}</div>
   </div>
-  <div className="row" style={{textAlign:'center'}}><a href="http://www.imdb.com/title/{selectedMovie.imdbId}" target="_blank" rel="noopener noreferrer" style={{color:'black'}}>click here for more info at imdb</a></div>
-
+  <div className="row" style={{textAlign:'center'}}>
+    <a href={urlString} target="_blank" rel="noopener noreferrer" style={{color:'black'}}>
+      click here for more info at imdb
+      </a>
+  </div>
   </div>
 </div>
   );
@@ -47,10 +51,8 @@ export function MovieInfo({selectedMovie}) {
 
 export function MoviePoster({selectedMovie}) {
 return (
-  // <div className="posterWrapper">
 <div className="moviePoster">
 <img src={selectedMovie.Poster} alt={selectedMovie.Title}/>
 </div>
-// </div>
 );
 }

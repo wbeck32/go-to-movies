@@ -96,8 +96,8 @@ class App extends Component {
           <MovieInfo selectedMovie={this.state.selectedMovieInfo}/>
           <MoviePoster selectedMovie={this.state.selectedMovieInfo}/>
           <div style={{textAlign:'center'}}>
-            <button onClick={() => this.handleClose()}
-              style={{height:20, marginTop:30}}>close info panel</button>
+            <button className="btn" onClick={() => this.handleClose()}
+              style={{marginTop:30}}>close info panel</button>
           </div>
         </div>
       <div onClick={( {target} ) => this.getMovieInfo({target})}>
