@@ -8,7 +8,7 @@ Search.propTypes = {
 export function Search({ onSearch }) {
   return (
     <div>
-      <input name="searchInput" onChange={({target}) => onSearch(target.value)}/>
+      <input placeholder="search for a movie title" name="searchInput" onChange={({target}) => onSearch(target.value)}/>
     </div>
   );
 }

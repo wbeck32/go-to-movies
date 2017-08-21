@@ -14,7 +14,7 @@ export function Movies({ movies }) {
     <div className="movieList">
       {movies.map(movie =>
         <div key={movie.imdbID}>
-          <Movie movie={movie} />
+          <Movie movie={movie}  />
         </div>
       )}
     </div>
@@ -23,13 +23,10 @@ export function Movies({ movies }) {
 
 export function Movie({ movie }) {
   return (
-      <div className="movieItem movieInfo">
+    <div>
+      {<div className="movieItem" id={movie.imdbID}>
         {movie.Title} - {movie.Year}
-        <div className="movieInfo">
-        <img src={movie.Poster} style={{width: 100}}/>
-      </div>
-      </div>
+      </div>}
+    </div>
   );
 }
-
-
