@@ -7,8 +7,6 @@ import { Movies } from './components/Movies';
 import { MovieInfo } from './components/MovieInfo';
 import { MoviePoster } from './components/MovieInfo';
 
-
-
 const API_KEY = process.env.REACT_APP_API_KEY;
 
 class App extends Component {
@@ -18,10 +16,8 @@ class App extends Component {
     value: PropTypes.string,
     movies: PropTypes.arrayOf(PropTypes.string),
     movie: PropTypes.object,
-
     searchTerm: PropTypes.string,
-    handleSearch: PropTypes.func,
-    showInfo: PropTypes.func
+    handleSearch: PropTypes.func
   };
 
   constructor(props) {
@@ -39,7 +35,6 @@ class App extends Component {
       posterUrl: logo
     };
 
-    this.getMovieInfo = this.getMovieInfo.bind(this);
   }
 
   componentDidMount() {
